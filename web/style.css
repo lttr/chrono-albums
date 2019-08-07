@@ -1,27 +1,51 @@
-.album {
+/* normalize */
+
+html,
+body {
   width: 100%;
-}
-.album img {
-  width: 100%;
-  height: auto;
-}
-.album figure {
-  display: block;
-  margin: 0 5px 5px 0;
-  width: 150px;
-}
-.album figcaption {
-  display: none;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
-.grid {
+* {
+  box-sizing: border-box;
+}
+
+/* layout */
+
+main {
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  padding: 1rem;
+}
+
+/* album */
+
+.album {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  grid-gap: 15px;
+  grid-gap: 10px;
   align-items: center;
+  width: 100%;
+  padding: 0.3rem;
+  margin: 0.3rem;
 }
-.grid img {
-  /* border: 1px solid #ccc; */
-  /* box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3); */
+
+.album img {
   max-width: 100%;
+  height: auto;
+  /* height: 140px;
+  width: 140px;
+  object-fit: cover; */
+}
+
+.album figure {
+  display: block;
+}
+
+.album figcaption {
+  display: none;
 }
