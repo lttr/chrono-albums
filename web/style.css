@@ -1,3 +1,10 @@
+/* variables */
+
+:root {
+  --photo-size: 140px;
+  --gap: 15px;
+}
+
 /* normalize */
 
 html,
@@ -15,10 +22,6 @@ body {
 /* layout */
 
 main {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: center; */
-  /* align-items: center; */
   padding: 1rem;
 }
 
@@ -26,24 +29,47 @@ main {
 
 .album {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  grid-gap: 10px;
-  align-items: center;
+  grid-template-columns: repeat(auto-fill, var(--photo-size));
+  grid-gap: var(--gap);
   width: 100%;
-  padding: 0.3rem;
-  margin: 0.3rem;
-}
-
-.album img {
-  max-width: 100%;
-  height: auto;
-  /* height: 140px;
-  width: 140px;
-  object-fit: cover; */
+  padding: 4px;
+  margin: 2px;
 }
 
 .album figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.album a {
   display: block;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  max-height: 100%;
+  text-decoration: none;
+}
+
+.album a:hover img {
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.3);
+}
+
+.album a:focus img {
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.5);
+}
+
+.album img {
+  width: var(--photo-size);
+  height: auto;
+}
+
+.album img:hover {
+  text-decoration: none;
 }
 
 .album figcaption {
