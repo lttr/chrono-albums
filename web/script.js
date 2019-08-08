@@ -1,4 +1,8 @@
 const initPhotoSwipeFromDOM = (gallerySelector) => {
+  let imageSize = 'small'
+  let firstResize = true
+  let imageSrcWillChange = false
+
   // parse slide data (url, title, size ...) from DOM elements
   // (children of gallerySelector)
   const parseThumbnailElements = (element) => {
@@ -89,6 +93,81 @@ const initPhotoSwipeFromDOM = (gallerySelector) => {
     return params
   }
 
+  const listenToGalleryViewportChange = (gallery) => {
+    // beforeResize event fires each time size of gallery viewport updates
+    gallery.listen('beforeResize', () => {
+      // gallery.viewportSize.x - width of PhotoSwipe viewport
+      // gallery.viewportSize.y - height of PhotoSwipe viewport
+      // window.devicePixelRatio - ratio between physical pixels and device independent pixels (Number)
+      //                          1 (regular display), 2 (@2x, retina) ...
+
+      // calculate real pixels when size changes
+      const realViewportWidth = gallery.viewportSize.x * window.devicePixelRatio
+
+      // Code below is needed if you want image to switch dynamically on window.resize
+
+      // Find out if current images need to be changed
+      if (imageSize !== 'large' && realViewportWidth >= 1200) {
+        imageSize = 'large'
+        imageSrcWillChange = true
+      } else if (imageSize !== 'medium' && realViewportWidth < 1200 && realViewportWidth >= 800) {
+        imageSize = 'medium'
+        imageSrcWillChange = true
+      } else if (imageSize !== 'small' && realViewportWidth < 800) {
+        imageSize = 'small'
+        imageSrcWillChange = true
+      }
+
+      // Invalidate items only when source is changed and when it's not the first update
+      if (imageSrcWillChange && !firstResize) {
+        // invalidateCurrItems sets a flag on slides that are in DOM,
+        // which will force update of content (image) on window.resize.
+        gallery.invalidateCurrItems()
+      }
+
+      if (firstResize) {
+        firstResize = false
+      }
+
+      imageSrcWillChange = false
+    })
+  }
+
+  const listenToGettingImage = (gallery) => {
+    // gettingData event fires each time PhotoSwipe retrieves image source & size
+    gallery.listen('gettingData', (index, item) => {
+      // Image sizes
+      //
+      // large -> 1920
+      // medium -> 1024
+      // small -> 640
+
+      // Set image source & size based on real viewport width
+      switch (imageSize) {
+        case 'small':
+          item.src = item.small.src
+          item.w = item.small.w
+          item.h = item.small.h
+          break
+        case 'medium':
+          item.src = item.medium.src
+          item.w = item.medium.w
+          item.h = item.medium.h
+          break
+        case 'large':
+          item.src = item.large.src
+          item.w = item.large.w
+          item.h = item.large.h
+          break
+        default:
+          item.src = item.original.src
+          item.w = item.original.w
+          item.h = item.original.h
+          break
+      }
+    })
+  }
+
   const openPhotoSwipe = (index, galleryElement, disableAnimation, fromURL) => {
     const pswpElement = document.querySelector('.pswp')
     const items = parseThumbnailElements(galleryElement)
@@ -142,6 +221,10 @@ const initPhotoSwipeFromDOM = (gallerySelector) => {
     // @ts-ignore
     // Pass data to PhotoSwipe and initialize it
     const gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options)
+
+    listenToGalleryViewportChange(gallery)
+    listenToGettingImage(gallery)
+
     gallery.init()
   }
 
@@ -159,5 +242,4 @@ const initPhotoSwipeFromDOM = (gallerySelector) => {
   }
 }
 
-// execute above function
 initPhotoSwipeFromDOM('.album')
