@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lttr/chrono-albums/issues"
   },
-  "homepage": "https://github.com/lttr/chrono-albums#readme"
+  "homepage": "https://github.com/lttr/chrono-albums#readme",
+  "devDependencies": {
+    "sharp": "^0.23.0"
+  }
 }
