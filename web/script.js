@@ -1,25 +1,37 @@
-const initPhotoSwipeFromDOM = (gallerySelector) => {
+function initPhotoSwipeFromDOM(gallerySelector) {
   let imageSize = 'small'
   let firstResize = true
   let imageSrcWillChange = false
 
   // parse slide data (url, title, size ...) from DOM elements
   // (children of gallerySelector)
-  const parseThumbnailElements = (element) => {
+  function parseThumbnailElements(element) {
     return (
       Array.from(element.childNodes)
         // include only element nodes
         .filter((figureElement) => figureElement.nodeType === 1)
         .map((figureElement) => {
-          const linkElement = figureElement.children[0] // <a> element
+          const linkElement = figureElement.children[0]
 
           const size = linkElement.getAttribute('data-size').split('x')
 
           // create slide object
           const item = {
-            src: linkElement.getAttribute('href'),
-            w: parseInt(size[0], 10),
-            h: parseInt(size[1], 10),
+            small: {
+              src: linkElement.getAttribute('href'),
+              w: parseInt(size[0], 10),
+              h: parseInt(size[1], 10),
+            },
+            medium: {
+              src: linkElement.getAttribute('href'),
+              w: parseInt(size[0], 10),
+              h: parseInt(size[1], 10),
+            },
+            large: {
+              src: linkElement.getAttribute('href'),
+              w: parseInt(size[0], 10),
+              h: parseInt(size[1], 10),
+            },
           }
 
           if (figureElement.children.length > 1) {
@@ -39,7 +51,7 @@ const initPhotoSwipeFromDOM = (gallerySelector) => {
   }
 
   // triggers when user clicks on thumbnail
-  const onThumbnailsClick = (event) => {
+  function onThumbnailsClick(event) {
     event.preventDefault()
     // find root element of slide
     const clickedListItem = event.target.closest('figure')
@@ -66,7 +78,7 @@ const initPhotoSwipeFromDOM = (gallerySelector) => {
   }
 
   // parse picture index and gallery index from URL (#&pid=1&gid=2)
-  const photoswipeParseHash = () => {
+  function photoswipeParseHash() {
     const hash = window.location.hash.substring(1)
     const params = {}
 
@@ -93,7 +105,7 @@ const initPhotoSwipeFromDOM = (gallerySelector) => {
     return params
   }
 
-  const listenToGalleryViewportChange = (gallery) => {
+  function listenToGalleryViewportChange(gallery) {
     // beforeResize event fires each time size of gallery viewport updates
     gallery.listen('beforeResize', () => {
       // gallery.viewportSize.x - width of PhotoSwipe viewport
@@ -133,7 +145,7 @@ const initPhotoSwipeFromDOM = (gallerySelector) => {
     })
   }
 
-  const listenToGettingImage = (gallery) => {
+  function listenToGettingImage(gallery) {
     // gettingData event fires each time PhotoSwipe retrieves image source & size
     gallery.listen('gettingData', (index, item) => {
       // Image sizes
@@ -168,7 +180,7 @@ const initPhotoSwipeFromDOM = (gallerySelector) => {
     })
   }
 
-  const openPhotoSwipe = (index, galleryElement, disableAnimation, fromURL) => {
+  function openPhotoSwipe(index, galleryElement, disableAnimation, fromURL) {
     const pswpElement = document.querySelector('.pswp')
     const items = parseThumbnailElements(galleryElement)
 
