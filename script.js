@@ -3,6 +3,8 @@ function initPhotoSwipeFromDOM(gallerySelector) {
   let firstResize = true
   let imageSrcWillChange = false
 
+  const supportsWebpImages = supportsWebp()
+
   // parse slide data (url, title, size ...) from DOM elements
   // (children of gallerySelector)
   function parseThumbnailElements(element) {
@@ -13,24 +15,26 @@ function initPhotoSwipeFromDOM(gallerySelector) {
         .map((figureElement) => {
           const linkElement = figureElement.children[0]
 
-          const size = linkElement.getAttribute('data-size').split('x')
+          const sizeSmall = linkElement.getAttribute('data-size-small').split('x')
+          const sizeMedium = linkElement.getAttribute('data-size-medium').split('x')
+          const sizeLarge = linkElement.getAttribute('data-size-large').split('x')
 
           // create slide object
           const item = {
             small: {
-              src: linkElement.getAttribute('href'),
-              w: parseInt(size[0], 10),
-              h: parseInt(size[1], 10),
+              src: linkElement.getAttribute('data-src-small'),
+              w: parseInt(sizeSmall[0], 10),
+              h: parseInt(sizeSmall[1], 10),
             },
             medium: {
-              src: linkElement.getAttribute('href'),
-              w: parseInt(size[0], 10),
-              h: parseInt(size[1], 10),
+              src: linkElement.getAttribute('data-src-medium'),
+              w: parseInt(sizeMedium[0], 10),
+              h: parseInt(sizeMedium[1], 10),
             },
             large: {
-              src: linkElement.getAttribute('href'),
-              w: parseInt(size[0], 10),
-              h: parseInt(size[1], 10),
+              src: linkElement.getAttribute('data-src-large'),
+              w: parseInt(sizeLarge[0], 10),
+              h: parseInt(sizeLarge[1], 10),
             },
           }
 
@@ -171,11 +175,10 @@ function initPhotoSwipeFromDOM(gallerySelector) {
           item.w = item.large.w
           item.h = item.large.h
           break
-        default:
-          item.src = item.original.src
-          item.w = item.original.w
-          item.h = item.original.h
-          break
+      }
+
+      if (supportsWebpImages) {
+        item.src = item.src.replace(/\.jpg$/, '.webp')
       }
     })
   }
@@ -255,3 +258,10 @@ function initPhotoSwipeFromDOM(gallerySelector) {
 }
 
 initPhotoSwipeFromDOM('.album')
+
+async function supportsWebp() {
+  if (!self.createImageBitmap) return false
+  const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA='
+  const blob = await fetch(webpData).then((r) => r.blob())
+  return createImageBitmap(blob).then(() => true, () => false)
+}

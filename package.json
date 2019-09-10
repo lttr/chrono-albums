@@ -4,7 +4,8 @@
   "description": "Static site generator for chronologically sorted photo albums.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "resize": "node resizer.js"
   },
   "repository": {
     "type": "git",
