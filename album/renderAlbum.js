@@ -5,13 +5,13 @@ const photoSwipeElement = require('./photoSwipeElement')
 const { wire } = require('viperhtml')
 const html = wire()
 
-module.exports = data => {
+module.exports = function(config, albums) {
   return html`
     <!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
-        <title>${data.albumName}${data.title && '-'}${data.title}</title>
+        <title>${config.albumName}${config.title && '-'}${config.title}</title>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css"
@@ -24,8 +24,12 @@ module.exports = data => {
       </head>
       <body>
         <main>
-          <h2>${data.albumName}</h2>
-          ${thumbnails(data)}
+          ${albums.map(album => {
+            return html`
+              <h2>${album.albumName}</h2>
+              ${thumbnails(album)}
+            `
+          })}
         </main>
 
         ${photoSwipeElement()}

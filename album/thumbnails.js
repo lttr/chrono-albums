@@ -1,24 +1,39 @@
 const { wire } = require('viperhtml')
 const html = wire()
-module.exports = data => html`
-  <div class="album" itemscope itemtype="http://schema.org/ImageGallery">
-    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-      <a
-        href="../dist-images/IMG_0316__1024.jpg"
-        itemprop="contentUrl"
-        data-src-small="../dist-images/test_01__640.jpg"
-        data-src-medium="../dist-images/test_01__1024.jpg"
-        data-src-large="../dist-images/test_01__1920.jpg"
-        data-size-small="1024x1024"
-        data-size-medium="1024x1024"
-        data-size-large="1024x1024"
-      >
-        <picture>
-          <source srcset="../dist-images/test_01__256.webp" type="image/webp" />
-          <img itemprop="thumbnail" src="../dist-images/test_01__256.jpg" />
-        </picture>
-      </a>
-      <figcaption itemprop="caption description">Comment</figcaption>
-    </figure>
-  </div>
-`
+
+function thumbnail(photo) {
+  const hrefSmall = `img/${photo.photoName}__640.jpg`
+  const hrefMedium = `img/${photo.photoName}__1024.jpg`
+  const hrefLarge = `img/${photo.photoName}__1920.jpg`
+  const hrefWebpThumb = `img/${photo.photoName}__256.webp`
+  const hrefJpgThumb = `img/${photo.photoName}__256.jpg`
+  const dimSmall = `${photo.dimensions.width}x${photo.dimensions.height}`
+  const dimMedium = `${photo.dimensions.width}x${photo.dimensions.height}`
+  const dimLarge = `${photo.dimensions.width}x${photo.dimensions.height}`
+  return html`
+    <div class="album" itemscope itemtype="http://schema.org/ImageGallery">
+      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+        <a
+          href="${hrefMedium}"
+          itemprop="contentUrl"
+          data-src-small="${hrefSmall}"
+          data-src-medium="${hrefMedium}"
+          data-src-large="${hrefLarge}"
+          data-size-small="${dimSmall}"
+          data-size-medium="${dimMedium}"
+          data-size-large="${dimLarge}"
+        >
+          <picture>
+            <source srcset="${hrefWebpThumb}" type="image/webp" />
+            <img itemprop="thumbnail" src="${hrefJpgThumb}" />
+          </picture>
+        </a>
+        <!-- <figcaption itemprop="caption description"></figcaption> -->
+      </figure>
+    </div>
+  `
+}
+
+module.exports = function(album) {
+  return album.photos.map(photo => thumbnail(photo))
+}

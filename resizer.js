@@ -11,19 +11,21 @@ const webpOptions = {
   quality: 80,
 }
 
-const inputDirectory = path.join(__dirname, 'source-images')
+const structureFile = path.join(__dirname, 'structure.json')
+
+const inputDirectory = path.join(__dirname, 'test', 'photos')
 const outputDirectory = path.join(__dirname, 'dist', 'img')
 
 if (!fs.existsSync(outputDirectory)) {
   fs.mkdirSync(outputDirectory, { recursive: true })
 }
 
-fs.readdirSync(inputDirectory)
-  .filter(fileName => fileName.toLowerCase().endsWith('jpg'))
-  .forEach(async fileName => {
-    const filePath = path.join(inputDirectory, fileName)
-    return await processFile(filePath, fileName, resolutions)
+const albums = JSON.parse(fs.readFileSync(structureFile, 'utf8'))
+albums.forEach(album => {
+  album.photos.forEach(async photo => {
+    return await processFile(photo.originalPath, photo.fileName, resolutions)
   })
+})
 
 async function processFile(filePath, fileName, resolutions) {
   await Promise.all([
