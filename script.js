@@ -11,8 +11,8 @@ function initPhotoSwipeFromDOM(gallerySelector) {
     return (
       Array.from(element.childNodes)
         // include only element nodes
-        .filter((figureElement) => figureElement.nodeType === 1)
-        .map((figureElement) => {
+        .filter(figureElement => figureElement.nodeType === 1)
+        .map(figureElement => {
           const linkElement = figureElement.children[0]
 
           const sizeSmall = linkElement.getAttribute('data-size-small').split('x')
@@ -71,8 +71,8 @@ function initPhotoSwipeFromDOM(gallerySelector) {
 
     const index = Array.from(childNodes)
       // include only element nodes
-      .filter((node) => node.nodeType === 1)
-      .findIndex((node) => node == clickedListItem)
+      .filter(node => node.nodeType === 1)
+      .findIndex(node => node == clickedListItem)
 
     if (index >= 0) {
       // open PhotoSwipe if valid index found
@@ -191,17 +191,26 @@ function initPhotoSwipeFromDOM(gallerySelector) {
     const options = {
       // define gallery index (for URL)
       galleryUID: galleryElement.getAttribute('data-pswp-uid'),
-      getThumbBoundsFn: (index) => {
+      getThumbBoundsFn: index => {
         // See Options -> getThumbBoundsFn section of documentation for more info
         const thumbnail = items[index].el.getElementsByTagName('img')[0] // find thumbnail
         const pageYScroll = window.pageYOffset || document.documentElement.scrollTop
         const rect = thumbnail.getBoundingClientRect()
 
-        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width }
+        return {
+          x: rect.left,
+          y: rect.top + pageYScroll,
+          w: rect.width,
+        }
       },
       // ui options
       shareButtons: [
-        { id: 'download', label: 'Download photo', url: '{{raw_image_url}}', download: true },
+        {
+          id: 'download',
+          label: 'Download photo',
+          url: '{{raw_image_url}}',
+          download: true,
+        },
       ],
     }
 
@@ -262,6 +271,6 @@ initPhotoSwipeFromDOM('.album')
 async function supportsWebp() {
   if (!self.createImageBitmap) return false
   const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA='
-  const blob = await fetch(webpData).then((r) => r.blob())
+  const blob = await fetch(webpData).then(r => r.blob())
   return createImageBitmap(blob).then(() => true, () => false)
 }

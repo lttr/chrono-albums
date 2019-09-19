@@ -12,20 +12,22 @@ const webpOptions = {
 }
 
 const inputDirectory = path.join(__dirname, 'source-images')
-const outputDirectory = path.join(__dirname, 'dist-images')
+const outputDirectory = path.join(__dirname, 'dist', 'img')
 
 if (!fs.existsSync(outputDirectory)) {
-  fs.mkdirSync(outputDirectory)
+  fs.mkdirSync(outputDirectory, { recursive: true })
 }
 
-fs.readdirSync(inputDirectory).forEach(async (fileName) => {
-  const filePath = path.join(inputDirectory, fileName)
-  return await processFile(filePath, fileName, resolutions)
-})
+fs.readdirSync(inputDirectory)
+  .filter(fileName => fileName.toLowerCase().endsWith('jpg'))
+  .forEach(async fileName => {
+    const filePath = path.join(inputDirectory, fileName)
+    return await processFile(filePath, fileName, resolutions)
+  })
 
 async function processFile(filePath, fileName, resolutions) {
   await Promise.all([
-    resolutions.map((resolution) => {
+    resolutions.map(resolution => {
       processResolution(filePath, fileName, resolution)
     }),
   ])

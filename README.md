@@ -4,6 +4,12 @@ Static site generator for chronologically sorted photo albums.
 
 ## Phases
 
+1. Generate structure
+
+2. Generate optimized images
+
+3. Generate web album
+
 ### 1. Generate structure
 
 _Generate a json document which describes photo albums to be generated. The structure is consumed by next phases._
