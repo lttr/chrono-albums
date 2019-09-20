@@ -1,33 +1,33 @@
-const fs = require('fs').promises
 const path = require('path')
 
 const structure = require('./src/structure')
 const resize = require('./src/resize')
 const markup = require('./src/markup')
+const { copyDirectory } = require('./src/utils')
 
 const config = require('./config')
 const rootDir = __dirname
 
-structure(rootDir, config)
-resize(rootDir, config)
-markup(rootDir, config)
+const arg = process.argv[2]
 
-async function copyDirectory(from, to) {
-  try {
-    await fs.mkdir(to)
-  } catch (e) {
-    console.log(e)
+if (arg) {
+  switch (arg) {
+    case 'structure':
+      structure(rootDir, config)
+      break
+    case 'resize':
+      resize(rootDir, config)
+      break
+    case 'markup':
+      markup(rootDir, config)
+      break
+    case 'copy':
+      copyDirectory(path.join('src', 'assets'), 'dist')
+      break
   }
-  const entries = await fs.readdir(from, { withFileTypes: true })
-  for (let entry of entries) {
-    const srcPath = path.join(from, entry.name)
-    const destPath = path.join(to, entry.name)
-    if (entry.isDirectory()) {
-      await copyDirectory(srcPath, destPath)
-    } else {
-      await fs.copyFile(srcPath, destPath)
-    }
-  }
+} else {
+  structure(rootDir, config)
+  resize(rootDir, config)
+  markup(rootDir, config)
+  copyDirectory(path.join('src', 'assets'), 'dist')
 }
-
-copyDirectory(path.join('src', 'assets'), 'dist')

@@ -32,13 +32,31 @@ function main(rootDir, config) {
     const outputJpg = path.join(outputDirectory, resizedFileName(fileName, resolution, 'jpg'))
     const outputWebp = path.join(outputDirectory, resizedFileName(fileName, resolution, 'webp'))
 
-    const buffer = await sharp(filePath)
-      .resize(resolution, resolution, {
-        fit: sharp.fit.inside,
-        withoutEnlargement: true,
-      })
-      .withMetadata()
-      .toBuffer()
+    let buffer
+    if (resolution > 400) {
+      buffer = await sharp(filePath)
+        .resize(resolution, resolution, {
+          fit: sharp.fit.inside,
+          withoutEnlargement: true,
+        })
+        .withMetadata()
+        .toBuffer()
+    } else if (resolution <= 400 && resolution > 50) {
+      buffer = await sharp(filePath)
+        .resize(resolution, resolution, {
+          fit: sharp.fit.outside,
+          withoutEnlargement: true,
+        })
+        .toBuffer()
+    } else {
+      buffer = await sharp(filePath)
+        .resize(resolution, resolution, {
+          fit: sharp.fit.outside,
+          withoutEnlargement: true,
+        })
+        .blur()
+        .toBuffer()
+    }
 
     await sharp(buffer)
       .jpeg(jpegOptions)

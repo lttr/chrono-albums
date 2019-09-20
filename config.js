@@ -1,7 +1,8 @@
 module.exports = {
-  title: 'abc',
+  title: 'Photo albums',
   resolutions: {
-    thumbnail: 256,
+    placeholder: 30,
+    thumbnail: 300,
     small: 640,
     medium: 1024,
     large: 1920,
@@ -12,5 +13,12 @@ module.exports = {
   },
   webpOptions: {
     quality: 80,
+  },
+  justifiedLayoutOptions: {
+    containerWidth: 1180,
+    containerPadding: 5,
+    boxSpacing: 5,
+    targetRowHeight: 300,
+    targetRowHeightTolerance: 0.2,
   },
 }

@@ -10,6 +10,7 @@ function main(rootDir, config) {
   }
 
   const structureFile = path.join(rootDir, 'dist', 'structure.json')
+
   const albums = JSON.parse(fs.readFileSync(structureFile, 'utf8'))
   const output = renderAlbum(config, albums).toString()
 
