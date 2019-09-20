@@ -1,10 +1,8 @@
 const path = require('path')
 const fs = require('fs').promises
-var { promisify } = require('util')
+const { promisify } = require('util')
 const { imageSize } = require('image-size')
-var sizeOf = promisify(imageSize)
-
-const inputDirectory = path.join(__dirname, 'test', 'photos')
+const sizeOf = promisify(imageSize)
 
 async function* getFiles(inputDirectory) {
   const dirs = await fs.readdir(inputDirectory, { withFileTypes: true })
@@ -33,7 +31,8 @@ function isAnAlbumDirectory(directoryName) {
   return directoryName.match(/(?<date>[0-9]{4}-[0-9]{2}(-[0-9]{2})?) (?<name>.*)/)
 }
 
-async function main() {
+async function main(rootPath, config) {
+  const inputDirectory = path.join(rootPath, 'test', 'photos')
   const albums = []
   for await (const dir of getDirs(inputDirectory)) {
     const match = isAnAlbumDirectory(dir)
@@ -49,7 +48,8 @@ async function main() {
         if (file.toLowerCase().endsWith('jpg')) {
           const stats = await fs.stat(file)
           const dimensions = await sizeOf(file)
-          delete dimensions['type']
+          // @ts-ignore
+          dimensions.aspectRatio = dimensions.width / dimensions.height
           const fileInfo = {
             modified: stats.mtime,
             originalPath: file,
@@ -65,7 +65,7 @@ async function main() {
     }
   }
   const albumMetadata = JSON.stringify(albums, null, 2)
-  await fs.writeFile(path.join(__dirname, 'structure.json'), albumMetadata)
+  await fs.writeFile(path.join(rootPath, 'dist', 'structure.json'), albumMetadata)
 }
 
-main()
+module.exports = main

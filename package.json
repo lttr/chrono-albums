@@ -4,12 +4,7 @@
   "description": "Static site generator for chronologically sorted photo albums.",
   "main": "index.js",
   "scripts": {
-    "resize": "node resizer.js",
-    "album": "node album.js",
-    "structure": "node structure.js",
-    "css": "cp style.css dist/style.css",
-    "js": "cp script.js dist/script.js",
-    "build": "run-s -l structure album resize css js",
+    "build": "node build.js",
     "serve": "browser-sync start --server --files dist --no-notify --open dist"
   },
   "repository": {
@@ -25,6 +20,7 @@
   "devDependencies": {
     "browser-sync": "^2.26.7",
     "image-size": "^0.8.1",
+    "justified-layout": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "sharp": "^0.23.0",
     "viperhtml": "^2.17.0"

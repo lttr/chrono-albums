@@ -27,7 +27,7 @@ module.exports = function(config, albums) {
           ${albums.map(album => {
             return html`
               <h2>${album.albumName}</h2>
-              ${thumbnails(album)}
+              ${thumbnails(album, config.resolutions)}
             `
           })}
         </main>

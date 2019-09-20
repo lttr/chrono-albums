@@ -23,6 +23,10 @@ body {
 
 main {
   padding: 1rem;
+  display: flex;
+  margin: auto;
+  max-width: 900px;
+  flex-direction: column;
 }
 
 /* album */
@@ -32,8 +36,6 @@ main {
   grid-template-columns: repeat(auto-fill, var(--photo-size));
   grid-gap: var(--gap);
   width: 100%;
-  padding: 4px;
-  margin: 2px;
 }
 
 .album figure {
@@ -64,8 +66,8 @@ main {
 }
 
 .album img {
-  width: var(--photo-size);
-  height: auto;
+  /* width: var(--photo-size); */
+  /* height: auto; */
 }
 
 .album img:hover {
