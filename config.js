@@ -2,7 +2,7 @@ module.exports = {
   title: 'Photo albums',
   resolutions: {
     placeholder: 30,
-    thumbnail: 300,
+    thumbnail: 320,
     small: 640,
     medium: 1024,
     large: 1920,
@@ -16,9 +16,9 @@ module.exports = {
   },
   justifiedLayoutOptions: {
     containerWidth: 1180,
-    containerPadding: 5,
-    boxSpacing: 5,
-    targetRowHeight: 300,
+    containerPadding: 0,
+    boxSpacing: 4,
+    targetRowHeight: 320,
     targetRowHeightTolerance: 0.2,
   },
 }
