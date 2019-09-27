@@ -25,13 +25,13 @@ module.exports = () => html`
 
           <div class="pswp__counter"></div>
 
-          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+          <button class="pswp__button pswp__button--close" title="Zavřít (Esc)"></button>
 
-          <button class="pswp__button pswp__button--share" title="Share"></button>
+          <button class="pswp__button pswp__button--share" title="Stáhnout"></button>
 
-          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+          <button class="pswp__button pswp__button--fs" title="Celá obrazovka"></button>
 
-          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+          <button class="pswp__button pswp__button--zoom" title="Zoom"></button>
 
           <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
           <!-- element will get class pswp__preloader--active when preloader is running -->
@@ -48,12 +48,9 @@ module.exports = () => html`
           <div class="pswp__share-tooltip"></div>
         </div>
 
-        <button
-          class="pswp__button pswp__button--arrow--left"
-          title="Previous (arrow left)"
-        ></button>
+        <button class="pswp__button pswp__button--arrow--left" title="Předchozí"></button>
 
-        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+        <button class="pswp__button pswp__button--arrow--right" title="Další"></button>
 
         <div class="pswp__caption">
           <div class="pswp__caption__center"></div>

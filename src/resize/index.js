@@ -2,10 +2,12 @@ const sharp = require('sharp')
 const fs = require('fs')
 const path = require('path')
 
-function main(rootDir, config) {
+async function main(rootDir, config) {
+  console.log('Resizing photos')
+
   const { resolutions, jpegOptions, webpOptions } = config
 
-  const outputDirectory = path.join(rootDir, 'dist', 'img')
+  const outputDirectory = path.join(rootDir, 'dist', config.photosFolderName)
 
   const structureFile = path.join(rootDir, 'dist', 'structure.json')
 
@@ -54,7 +56,7 @@ function main(rootDir, config) {
           fit: sharp.fit.outside,
           withoutEnlargement: true,
         })
-        .blur()
+        .blur(7)
         .toBuffer()
     }
 
@@ -62,9 +64,11 @@ function main(rootDir, config) {
       .jpeg(jpegOptions)
       .toFile(outputJpg)
 
-    await sharp(buffer)
-      .webp(webpOptions)
-      .toFile(outputWebp)
+    if (resolution <= 400) {
+      await sharp(buffer)
+        .webp(webpOptions)
+        .toFile(outputWebp)
+    }
   }
 
   function resizedFileName(fileName, resolution, extension) {

@@ -1,31 +1,13 @@
-/* normalize */
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-/* layout */
-
-main {
-  padding: 1rem;
-  display: flex;
-  margin: auto;
-  max-width: 1200px;
-  flex-direction: column;
-}
-
 /* albums */
 
 .chrono-albums {
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 1rem auto;
+}
+
+.album-heading {
+  text-align: center;
 }
 
 .album {

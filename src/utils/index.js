@@ -2,6 +2,7 @@ const fs = require('fs').promises
 const path = require('path')
 
 async function copyDirectory(from, to) {
+  console.log('Copying files')
   try {
     await fs.mkdir(to)
   } catch (error) {

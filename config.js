@@ -1,5 +1,7 @@
 module.exports = {
   title: 'Photo albums',
+  marginPercent: 0.1,
+  photosFolderName: 'photos',
   resolutions: {
     placeholder: 30,
     thumbnail: 320,
@@ -10,6 +12,7 @@ module.exports = {
   jpegOptions: {
     quality: 80,
     progressive: true,
+    optimizeScans: true,
   },
   webpOptions: {
     quality: 80,

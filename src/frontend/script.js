@@ -3,7 +3,7 @@ function initPhotoSwipeFromDOM(gallerySelector) {
   let firstResize = true
   let imageSrcWillChange = false
 
-  const supportsWebpImages = supportsWebp()
+  // const supportsWebpImages = supportsWebp()
 
   // parse slide data (url, title, size ...) from DOM elements
   // (children of gallerySelector)
@@ -177,9 +177,9 @@ function initPhotoSwipeFromDOM(gallerySelector) {
           break
       }
 
-      if (supportsWebpImages) {
-        item.src = item.src.replace(/\.jpg$/, '.webp')
-      }
+      // if (supportsWebpImages) {
+      //   item.src = item.src.replace(/\.jpg$/, '.webp')
+      // }
     })
   }
 
@@ -266,11 +266,11 @@ function initPhotoSwipeFromDOM(gallerySelector) {
   }
 }
 
-initPhotoSwipeFromDOM('.album')
+// async function supportsWebp() {
+//   if (!self.createImageBitmap) return false
+//   const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA='
+//   const blob = await fetch(webpData).then(r => r.blob())
+//   return createImageBitmap(blob).then(() => true, () => false)
+// }
 
-async function supportsWebp() {
-  if (!self.createImageBitmap) return false
-  const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA='
-  const blob = await fetch(webpData).then(r => r.blob())
-  return createImageBitmap(blob).then(() => true, () => false)
-}
+export { initPhotoSwipeFromDOM }
