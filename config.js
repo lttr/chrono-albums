@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Photo albums',
   marginPercent: 0.1,
-  photosFolderName: 'photos',
+  photosFolderName: 'test/photos',
   resolutions: {
     placeholder: 30,
     thumbnail: 320,

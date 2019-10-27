@@ -33,12 +33,48 @@ async function albums(width) {
   const structureResult = await fetch('./structure.json')
   const albums = await structureResult.json()
   config.justifiedLayoutOptions.containerWidth = width
-  return albums.map(album => {
-    return html`
-      <h2 class="album-heading">${album.albumName}</h2>
-      ${thumbnails(album, config)}
-    `
-  })
+  return timeline(albums)
+  // return albums.map(album => {
+  //   return html`
+  //     <h2 class="album-heading">${album.albumName}</h2>
+  //     ${thumbnails(album, config)}
+  //   `
+  // })
+}
+
+function timeline(albums) {
+  return html`
+    <section class="section">
+      <div class="timeline is-centered">
+        <header class="timeline-header">
+          <span class="tag is-medium is-primary">2018</span>
+        </header>
+        ${albums.map(album => {
+          console.log(album)
+          return wire(album)`
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <h2 class="title is-5 is-uppercase">
+                  <a href="#">
+                    ${album.albumName}
+                  </a>
+                </h2>
+                <p>
+                  <a href="#">
+                    <img
+                      src="${'test/photos/' + album.photos[0].photoName + '__320.jpg'}"
+                      style="width:340px"
+                    />
+                  </a>
+                </p>
+              </div>
+            </div>
+          `
+        })}
+      </div>
+    </section>
+  `
 }
 
 /**

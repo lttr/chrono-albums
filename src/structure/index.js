@@ -33,7 +33,7 @@ function isAnAlbumDirectory(directoryName) {
 
 async function main(rootPath, config) {
   console.log('Generating structure')
-  const inputDirectory = path.join(rootPath, 'photos')
+  const inputDirectory = path.join(rootPath, config.photosFolderName)
   const albums = []
   for await (const dir of getDirs(inputDirectory)) {
     const match = isAnAlbumDirectory(dir)
