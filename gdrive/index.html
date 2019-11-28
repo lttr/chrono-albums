@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main></main>
+    <script type="module">
+      function formatTree(tree) {
+        const log = []
+        let up = false
+        function printTree(root, level) {
+          log.push(`<li>${root.name}</li>`)
+          if (root.children) {
+            log.push(`<ul>`)
+            root.children.sort((a, b) => a.name.localeCompare(b.name))
+            for (const child of root.children) {
+              printTree(child, level + 1)
+            }
+            if (up) {
+              log.push(`</ul>`)
+              up = false
+            }
+          }
+          up = true
+        }
+        printTree(tree, 0)
+        return `<ul>${log.join('')}</ul>`
+      }
+
+      async function main() {
+        const data = await fetch('/tree.json').then(res => res.json())
+        document.body.innerHTML = formatTree(data)
+      }
+
+      main()
+    </script>
+  </body>
+</html>

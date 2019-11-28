@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Static site generator for chronologically sorted photo albums.",
   "main": "index.js",
+  "bin": "",
   "scripts": {
     "frontend": "parcel build -d dist src/frontend/index.html",
     "build": "rimraf dist && npm run frontend && node build.js",
@@ -12,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/lttr/chrono-albums.git"
   },
-  "author": "",
+  "author": "Lukas Trumm",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/lttr/chrono-albums/issues"
@@ -30,7 +31,7 @@
     "viperhtml": "^2.17.0"
   },
   "dependencies": {
-    "hyperhtml": "^2.31.0"
+    "hypermorphic": "^0.9.0"
   },
   "browserslist": [
     "last 1 chrome version"

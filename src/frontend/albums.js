@@ -1,5 +1,5 @@
 import justifiedLayout from 'justified-layout'
-import { bind, wire } from 'hyperhtml'
+import { bind, wire } from 'hypermorphic'
 import config from '../../config'
 import { initPhotoSwipeFromDOM } from './script'
 
@@ -12,11 +12,27 @@ const html = wire()
 main()
 
 async function main() {
+  const structureResult = await fetch('./structure.json')
+  const data = await structureResult.json()
+  renderChronoAlbums(data)
+}
+
+function renderChronoAlbums(data) {
   const chronoAlbumsElement = document.querySelector('.chrono-albums')
   const windowWidth = window.innerWidth
   const width = windowWidth - windowWidth * config.marginPercent * 2
   chronoAlbumsElement.style.width = `${width}px`
-  bind(chronoAlbumsElement)`${albums(width)}`
+  config.justifiedLayoutOptions.containerWidth = width
+  bind(chronoAlbumsElement)`${timeline(data, width)}`
+}
+
+function renderAlbum(album) {
+  const chronoAlbumsElement = document.querySelector('.chrono-albums')
+  const windowWidth = window.innerWidth
+  const width = windowWidth - windowWidth * config.marginPercent * 2
+  chronoAlbumsElement.style.width = `${width}px`
+  config.justifiedLayoutOptions.containerWidth = width
+  bind(chronoAlbumsElement)`${albums(album, width)}`
 }
 
 window.addEventListener('resize', debounce(main, 200))
@@ -29,39 +45,36 @@ function debounce(func, wait) {
   }
 }
 
-async function albums(width) {
+async function albums(album, width) {
   const structureResult = await fetch('./structure.json')
-  const albums = await structureResult.json()
-  config.justifiedLayoutOptions.containerWidth = width
-  return timeline(albums)
-  // return albums.map(album => {
-  //   return html`
-  //     <h2 class="album-heading">${album.albumName}</h2>
-  //     ${thumbnails(album, config)}
-  //   `
-  // })
+  const data = await structureResult.json()
+  album = data[0]
+  return wire()`
+      <h2 class="album-heading">${album.albumName}</h2>
+      ${thumbnails(album, config)}
+    `
 }
 
-function timeline(albums) {
-  return html`
+function timeline(albums, width) {
+  return wire()`
     <section class="section">
       <div class="timeline is-centered">
         <header class="timeline-header">
           <span class="tag is-medium is-primary">2018</span>
         </header>
         ${albums.map(album => {
-          console.log(album)
-          return wire(album)`
+          const link = '#/' + album.albumName
+          return wire()`
             <div class="timeline-item">
               <div class="timeline-marker"></div>
               <div class="timeline-content">
                 <h2 class="title is-5 is-uppercase">
-                  <a href="#">
+                  <a href="${link}" onclick="renderAlbum()">
                     ${album.albumName}
                   </a>
                 </h2>
                 <p>
-                  <a href="#">
+                  <a href="${link}">
                     <img
                       src="${'test/photos/' + album.photos[0].photoName + '__320.jpg'}"
                       style="width:340px"
@@ -144,16 +157,10 @@ function thumbnail(photo, index, resolutions, boxGeometry) {
   const hrefSmall = `${config.photosFolderName}/${photo.photoName}__${resolutions.small}.jpg`
   const hrefMedium = `${config.photosFolderName}/${photo.photoName}__${resolutions.medium}.jpg`
   const hrefLarge = `${config.photosFolderName}/${photo.photoName}__${resolutions.large}.jpg`
-  const hrefWebpThumb = `${config.photosFolderName}/${photo.photoName}__${
-    resolutions.thumbnail
-  }.webp`
+  const hrefWebpThumb = `${config.photosFolderName}/${photo.photoName}__${resolutions.thumbnail}.webp`
   const hrefJpgThumb = `${config.photosFolderName}/${photo.photoName}__${resolutions.thumbnail}.jpg`
-  const hrefWebpPlaceholder = `${config.photosFolderName}/${photo.photoName}__${
-    resolutions.placeholder
-  }.webp`
-  const hrefJpgPlaceholder = `${config.photosFolderName}/${photo.photoName}__${
-    resolutions.placeholder
-  }.jpg`
+  const hrefWebpPlaceholder = `${config.photosFolderName}/${photo.photoName}__${resolutions.placeholder}.webp`
+  const hrefJpgPlaceholder = `${config.photosFolderName}/${photo.photoName}__${resolutions.placeholder}.jpg`
 
   const { aspectRatio } = photo.dimensions
   let dimSmall

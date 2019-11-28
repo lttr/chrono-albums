@@ -2,3 +2,5 @@ node_modules
 dist
 .cache
 photos
+credentials.json
+token.json
