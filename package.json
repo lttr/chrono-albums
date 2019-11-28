@@ -1,35 +1,35 @@
 {
-  "name": "js-skeleton",
-  "version": "1.0.0",
-  "description": "A skeleton repository for new JavaScript projects on GitHub",
+  "name": "chrono-albums",
+  "version": "0.1.0",
+  "description": "Static site generator for chronologically sorted photo albums.",
   "keywords": [
-    "javascript",
-    "seed",
-    "skeleton",
-    "starter"
+    "photos",
+    "static site generator"
   ],
-  "homepage": "https://github.com/lttr/js-skeleton#readme",
+  "homepage": "https://github.com/lttr/chrono-albums#readme",
   "bugs": {
-    "url": "https://github.com/lttr/js-skeleton/issues"
+    "url": "https://github.com/lttr/chrono-albums/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lttr/js-skeleton.git"
+    "url": "git+https://github.com/lttr/chrono-albums.git"
   },
   "license": "MIT",
   "author": "Lukas Trumm",
   "main": "src/index.js",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
     "build": "pika build",
     "format": "prettier --write '**/*.{ts,json,md,yml,js}'",
-    "lint": "eslint src/ test/",
+    "lint": "eslint src/ tests/",
+    "prepare": "pika install",
+    "serve": "browser-sync start --server dist --files dist --no-notify --open dist",
     "test": "ava",
     "test-coverage": "cross-env NODE_ENV=test nyc ava",
     "validate": "run-p -l lint test build",
     "watch": "ava --watch"
+  },
+  "dependencies": {
+    "hyperhtml": "^2.31.5"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
@@ -40,6 +40,7 @@
     "@pika/plugin-build-node": "^0.7.1",
     "@pika/plugin-build-web": "^0.7.1",
     "@pika/plugin-standard-pkg": "^0.7.1",
+    "@pika/web": "^0.6.1",
     "ava": "*",
     "babel-plugin-istanbul": "^5.2.0",
     "cross-env": "^6.0.3",
