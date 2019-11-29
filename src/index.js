@@ -1,1 +1,2 @@
-export { isArrayEmpty } from './isArrayEmpty'
+import structure from './sourceMetadata'
+export { structure }
