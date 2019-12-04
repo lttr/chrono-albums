@@ -1,7 +1,5 @@
 node_modules/
-web_modules/
 dist/
-pkg/
 
 credentials.json
 token.json

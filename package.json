@@ -16,12 +16,12 @@
   },
   "license": "MIT",
   "author": "Lukas Trumm",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "bin": "dist/cli.js",
   "scripts": {
-    "build": "pika build",
+    "build": "babel src/ -d dist/",
     "format": "prettier --write '**/*.{ts,json,md,yml,js}'",
     "lint": "eslint src/ tests/",
-    "prepare": "pika install",
     "serve": "browser-sync start --server dist --files dist --no-notify --open dist",
     "test": "ava",
     "test-coverage": "cross-env NODE_ENV=test nyc ava",
@@ -30,6 +30,7 @@
     "watch": "ava --watch"
   },
   "dependencies": {
+    "commander": "^4.0.1",
     "date-fns": "^2.8.1",
     "googleapis": "^45.0.0",
     "hyperhtml": "^2.31.5",
@@ -38,15 +39,11 @@
     "merge-options": "^2.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "@babel/register": "^7.7.0",
     "@istanbuljs/nyc-config-babel": "^2.1.1",
-    "@pika/pack": "^0.5.0",
-    "@pika/plugin-build-node": "^0.7.1",
-    "@pika/plugin-build-web": "^0.7.1",
-    "@pika/plugin-standard-pkg": "^0.7.1",
-    "@pika/web": "^0.6.1",
     "ava": "*",
     "babel-plugin-istanbul": "^5.2.0",
     "cross-env": "^6.0.3",
@@ -64,23 +61,5 @@
   },
   "engines": {
     "node": ">=12"
-  },
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-standard-pkg",
-        {
-          "exclude": [
-            "tests/**/*"
-          ]
-        }
-      ],
-      [
-        "@pika/plugin-build-node"
-      ],
-      [
-        "@pika/plugin-build-web"
-      ]
-    ]
   }
 }
