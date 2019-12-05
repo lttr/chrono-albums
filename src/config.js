@@ -2,6 +2,8 @@ export default {
   title: 'Photo albums',
   marginPercent: 0.1,
   photosFolderName: 'photos',
+  output: 'albums',
+  sourceMetadataFileName: 'sourceMetadata.json',
   resolutions: {
     placeholder: 30,
     thumbnail: 320,

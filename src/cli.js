@@ -1,15 +1,19 @@
 import program from 'commander'
+import path from 'path'
+
+import { clean } from './clean'
+import config from './config'
+import { preparePhotos } from './photosPreparation'
 import {
   generateFromFileSystem,
-  saveSourceMetadata,
   generateFromGoogleDrive,
+  saveSourceMetadata,
 } from './sourceMetadata'
-import path from 'path'
 
 async function cli(args) {
   program
     .requiredOption('-p, --plugin <plugin>', 'Plugin name')
-    .requiredOption('-l, --location <location>', 'Location (file path or url)')
+    .option('-l, --location <location>', 'Location (file path or url)')
     .parse(args)
 
   const cwd = path.resolve(process.cwd())
@@ -17,11 +21,19 @@ async function cli(args) {
 
   switch (plugin) {
     case 'file-system':
-      saveSourceMetadata(cwd, await generateFromFileSystem(location))
+      saveSourceMetadata(cwd, await generateFromFileSystem(location), config)
       break
 
     case 'google-drive':
-      saveSourceMetadata(cwd, await generateFromGoogleDrive(location))
+      saveSourceMetadata(cwd, await generateFromGoogleDrive(location), config)
+      break
+
+    case 'photos-preparation':
+      preparePhotos(cwd, config)
+      break
+
+    case 'clean':
+      await clean(path.join(cwd, config.output))
       break
 
     default:
@@ -30,4 +42,6 @@ async function cli(args) {
   }
 }
 
-cli(process.argv)
+cli(process.argv).catch(reason => {
+  console.log(reason)
+})

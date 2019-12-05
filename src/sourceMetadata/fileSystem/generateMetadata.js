@@ -1,14 +1,13 @@
 import path from 'path'
 
-import defaultConfig from '../../config.default'
 import { isAnAlbumDirectory, parseAlbumName } from '../shared/albums'
 import { computeAspectRatio, testFileExtention } from '../shared/photos'
 import { fileMetadata, getDateTaken, getDirs, getFilesPaths } from './fileUtils'
 
 const PHOTO_FILE_EXTENSIONS = ['jpg', 'jpeg']
 
-export async function generateFromFileSystem(rootPath, config = defaultConfig) {
-  const inputDirectory = path.join(rootPath, config.photosFolderName)
+export async function generateFromFileSystem(location) {
+  const inputDirectory = path.resolve(location)
   const albums = []
   for await (const dir of getDirs(inputDirectory)) {
     if (isAnAlbumDirectory(dir)) {
