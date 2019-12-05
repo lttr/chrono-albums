@@ -37,7 +37,7 @@ function buildPhotoMetadata(drivePhoto) {
       .toLocaleLowerCase()
       .replace('.jpg', '')
       .replace('.jpeg', ''),
-    fileSize: drivePhoto.size,
+    fileSize: parseInt(drivePhoto.size, 10),
     dimensions: {
       width: drivePhoto.imageMediaMetadata.width,
       height: drivePhoto.imageMediaMetadata.height,

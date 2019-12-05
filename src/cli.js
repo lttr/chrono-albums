@@ -1,16 +1,27 @@
 import program from 'commander'
-import { generateFromFileSystem } from './sourceMetadata'
+import {
+  generateFromFileSystem,
+  saveSourceMetadata,
+  generateFromGoogleDrive,
+} from './sourceMetadata'
+import path from 'path'
 
-function cli(args) {
+async function cli(args) {
   program
     .requiredOption('-p, --plugin <plugin>', 'Plugin name')
     .requiredOption('-l, --location <location>', 'Location (file path or url)')
     .parse(args)
 
-  console.log(program.plugin, program.location)
-  switch (program.plugin) {
+  const cwd = path.resolve(process.cwd())
+  const { plugin, location } = program
+
+  switch (plugin) {
     case 'file-system':
-      generateFromFileSystem(program.location)
+      saveSourceMetadata(cwd, await generateFromFileSystem(location))
+      break
+
+    case 'google-drive':
+      saveSourceMetadata(cwd, await generateFromGoogleDrive(location))
       break
 
     default:
