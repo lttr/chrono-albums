@@ -3,7 +3,7 @@ function initPhotoSwipeFromDOM(gallerySelector) {
   let firstResize = true
   let imageSrcWillChange = false
 
-  const supportsWebpImages = supportsWebp()
+  // const supportsWebpImages = supportsWebp()
 
   // parse slide data (url, title, size ...) from DOM elements
   // (children of gallerySelector)
@@ -15,9 +15,15 @@ function initPhotoSwipeFromDOM(gallerySelector) {
         .map(figureElement => {
           const linkElement = figureElement.children[0]
 
-          const sizeSmall = linkElement.getAttribute('data-size-small').split('x')
-          const sizeMedium = linkElement.getAttribute('data-size-medium').split('x')
-          const sizeLarge = linkElement.getAttribute('data-size-large').split('x')
+          const sizeSmall = linkElement
+            .getAttribute('data-size-small')
+            .split('x')
+          const sizeMedium = linkElement
+            .getAttribute('data-size-medium')
+            .split('x')
+          const sizeLarge = linkElement
+            .getAttribute('data-size-large')
+            .split('x')
 
           // create slide object
           const item = {
@@ -126,7 +132,11 @@ function initPhotoSwipeFromDOM(gallerySelector) {
       if (imageSize !== 'large' && realViewportWidth >= 1200) {
         imageSize = 'large'
         imageSrcWillChange = true
-      } else if (imageSize !== 'medium' && realViewportWidth < 1200 && realViewportWidth >= 800) {
+      } else if (
+        imageSize !== 'medium' &&
+        realViewportWidth < 1200 &&
+        realViewportWidth >= 800
+      ) {
         imageSize = 'medium'
         imageSrcWillChange = true
       } else if (imageSize !== 'small' && realViewportWidth < 800) {
@@ -177,9 +187,9 @@ function initPhotoSwipeFromDOM(gallerySelector) {
           break
       }
 
-      if (supportsWebpImages) {
-        item.src = item.src.replace(/\.jpg$/, '.webp')
-      }
+      // if (supportsWebpImages) {
+      //   item.src = item.src.replace(/\.jpg$/, '.webp')
+      // }
     })
   }
 
@@ -194,7 +204,8 @@ function initPhotoSwipeFromDOM(gallerySelector) {
       getThumbBoundsFn: index => {
         // See Options -> getThumbBoundsFn section of documentation for more info
         const thumbnail = items[index].el.getElementsByTagName('img')[0] // find thumbnail
-        const pageYScroll = window.pageYOffset || document.documentElement.scrollTop
+        const pageYScroll =
+          window.pageYOffset || document.documentElement.scrollTop
         const rect = thumbnail.getBoundingClientRect()
 
         return {
@@ -244,7 +255,12 @@ function initPhotoSwipeFromDOM(gallerySelector) {
 
     // @ts-ignore
     // Pass data to PhotoSwipe and initialize it
-    const gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options)
+    const gallery = new PhotoSwipe(
+      pswpElement,
+      PhotoSwipeUI_Default,
+      items,
+      options
+    )
 
     listenToGalleryViewportChange(gallery)
     listenToGettingImage(gallery)
@@ -266,11 +282,11 @@ function initPhotoSwipeFromDOM(gallerySelector) {
   }
 }
 
-initPhotoSwipeFromDOM('.album')
+// async function supportsWebp() {
+//   if (!self.createImageBitmap) return false
+//   const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA='
+//   const blob = await fetch(webpData).then(r => r.blob())
+//   return createImageBitmap(blob).then(() => true, () => false)
+// }
 
-async function supportsWebp() {
-  if (!self.createImageBitmap) return false
-  const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA='
-  const blob = await fetch(webpData).then(r => r.blob())
-  return createImageBitmap(blob).then(() => true, () => false)
-}
+export { initPhotoSwipeFromDOM }

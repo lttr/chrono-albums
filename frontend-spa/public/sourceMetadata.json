@@ -1,0 +1,90 @@
+[
+  {
+    "originalName": "2019-07-15 Travel",
+    "albumDateString": "2019-07-15",
+    "albumName": "Travel",
+    "albumTime": "2019-07-15T00:00:00.000Z",
+    "photos": [
+      {
+        "dateTaken": "2019-07-15T08:20:30.000Z",
+        "originalPath": "tests/fixture1/photos/2019/2019-07-15 Travel/unsplash-travel-1.jpg",
+        "fileName": "unsplash-travel-1.jpg",
+        "photoName": "unsplash-travel-1",
+        "fileSize": 1283639,
+        "dimensions": {
+          "width": 2500,
+          "height": 3750,
+          "aspectRatio": 0.67
+        }
+      },
+      {
+        "dateTaken": "2019-07-15T09:20:30.000Z",
+        "originalPath": "tests/fixture1/photos/2019/2019-07-15 Travel/unsplash-travel-2.jpg",
+        "fileName": "unsplash-travel-2.jpg",
+        "photoName": "unsplash-travel-2",
+        "fileSize": 1557051,
+        "dimensions": {
+          "width": 2500,
+          "height": 3750,
+          "aspectRatio": 0.67
+        }
+      },
+      {
+        "dateTaken": "2019-07-15T05:20:30.000Z",
+        "originalPath": "tests/fixture1/photos/2019/2019-07-15 Travel/unsplash-travel-3.jpg",
+        "fileName": "unsplash-travel-3.jpg",
+        "photoName": "unsplash-travel-3",
+        "fileSize": 548637,
+        "dimensions": {
+          "width": 2500,
+          "height": 1667,
+          "aspectRatio": 1.5
+        }
+      }
+    ]
+  },
+  {
+    "originalName": "2019-08 Nature",
+    "albumDateString": "2019-08",
+    "albumName": "Nature",
+    "albumTime": "2019-08-01T00:00:00.000Z",
+    "photos": [
+      {
+        "dateTaken": "2019-08-02T12:20:30.000Z",
+        "originalPath": "tests/fixture1/photos/2019/2019-08 Nature/unsplash-nature-1.jpg",
+        "fileName": "unsplash-nature-1.jpg",
+        "photoName": "unsplash-nature-1",
+        "fileSize": 350997,
+        "dimensions": {
+          "width": 2500,
+          "height": 1667,
+          "aspectRatio": 1.5
+        }
+      },
+      {
+        "dateTaken": "2019-08-02T11:20:30.000Z",
+        "originalPath": "tests/fixture1/photos/2019/2019-08 Nature/unsplash-nature-2.jpg",
+        "fileName": "unsplash-nature-2.jpg",
+        "photoName": "unsplash-nature-2",
+        "fileSize": 902173,
+        "dimensions": {
+          "width": 2500,
+          "height": 3743,
+          "aspectRatio": 0.67
+        }
+      },
+      {
+        "dateTaken": "2019-11-29T12:53:44.516Z",
+        "originalPath": "tests/fixture1/photos/2019/2019-08 Nature/unsplash-nature-3.jpg",
+        "fileName": "unsplash-nature-3.jpg",
+        "photoName": "unsplash-nature-3",
+        "fileSize": 92280,
+        "dimensions": {
+          "width": 2500,
+          "height": 1667,
+          "aspectRatio": 1.5
+        }
+      }
+    ]
+  }
+]

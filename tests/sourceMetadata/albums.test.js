@@ -26,13 +26,14 @@ test('album directory name with name only', t => {
 // parseAlbumName
 
 test('album name parsing can parse expected name format', t => {
+  const directoryName = '2019-08-05 Album name'
   const expected = {
     albumDateString: '2019-08-05',
     albumName: 'Album name',
     albumTime: new Date('2019-08-05'),
+    originalName: directoryName,
     photos: [],
   }
-  const directoryName = '2019-08-05 Album name'
   const actual = parseAlbumName(directoryName)
   t.deepEqual(actual, expected)
 })

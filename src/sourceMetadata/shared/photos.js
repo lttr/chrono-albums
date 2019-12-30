@@ -32,7 +32,7 @@
  * @return {number} height devided by width and rounded to 2 decimal places
  */
 export function computeAspectRatio({ width, height }) {
-  return Number(Number(height / width).toFixed(2))
+  return Number(Number(width / height).toFixed(2))
 }
 
 /**

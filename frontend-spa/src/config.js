@@ -1,6 +1,6 @@
 export default {
   title: 'Photo albums',
-  marginPercent: 0.02,
+  marginPercent: 0.1,
   photosFolderName: 'photos',
   output: 'albums',
   sourceMetadataFileName: 'sourceMetadata.json',
@@ -20,9 +20,9 @@ export default {
     quality: 80,
   },
   justifiedLayoutOptions: {
-    containerWidth: 800,
+    containerWidth: 1180,
     containerPadding: 0,
-    boxSpacing: 5,
+    boxSpacing: 4,
     targetRowHeight: 320,
     targetRowHeightTolerance: 0.2,
   },

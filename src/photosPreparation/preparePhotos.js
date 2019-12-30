@@ -32,7 +32,7 @@ export async function preparePhotos(rootDir, config) {
   albums.forEach(album => {
     album.photos.forEach(async photo => {
       return await processFile(
-        album.albumDateString,
+        album.originalName,
         photo.originalPath,
         photo.fileName,
         outputDirectory,

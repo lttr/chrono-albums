@@ -1,3 +1,5 @@
+import path from 'path'
+
 const ALBUM_NAME_REGEX = /(?<date>[0-9]{4}-[0-9]{2}(-[0-9]{2})?) (?<name>.+)/
 
 /**
@@ -20,6 +22,7 @@ export function parseAlbumName(directoryName) {
     throw new Error(`Album name ${directoryName} has unexpected format`)
   }
   return {
+    originalName: path.basename(directoryName),
     albumDateString: match.groups.date,
     albumName: match.groups.name,
     albumTime: new Date(match.groups.date),

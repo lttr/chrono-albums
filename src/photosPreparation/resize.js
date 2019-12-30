@@ -4,7 +4,7 @@ import sharp, { fit } from 'sharp'
 import { makeSureDirExists } from '../utils'
 
 export async function processFile(
-  albumDateString,
+  originalAlbumName,
   filePath,
   fileName,
   outputDir,
@@ -15,7 +15,7 @@ export async function processFile(
     Object.values(config.resolutions).map(async resolution => {
       const resizedFileNameFunction = resizedFileName(
         outputDir,
-        albumDateString,
+        originalAlbumName,
         fileName,
         resolution
       )
@@ -80,7 +80,7 @@ async function resize(
 
 function resizedFileName(
   outputDirectory,
-  albumDateString,
+  originalAlbumName,
   fileName,
   resolution
 ) {
@@ -88,7 +88,7 @@ function resizedFileName(
     const index = fileName.lastIndexOf('.')
     const fileWithoutExtension = fileName.slice(0, index)
     const newFileName = `${fileWithoutExtension}__${resolution}.${extension}`
-    const newDir = path.join(outputDirectory, albumDateString)
+    const newDir = path.join(outputDirectory, originalAlbumName)
     await makeSureDirExists(newDir)
     return path.join(newDir, newFileName)
   }

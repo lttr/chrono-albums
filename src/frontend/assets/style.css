@@ -36,3 +36,13 @@
 .photo-image:hover {
   text-decoration: none;
 }
+
+/* timeline */
+@media (max-width: 800px) {
+  .timeline.is-centered .timeline-header {
+    /* width: 100%; */
+    width: 4em !important;
+    /* align-self: center; */
+    align-self: initial;
+  }
+}
