@@ -13,11 +13,11 @@
 </script>
 
 <style>
-  /* @import url('https://ctyriadvacitka.skauting.cz/css/skaut-design.min.css'); */
+  @import url('../node_modules/@lttr/skaut-design/css/skaut-design.css');
 </style>
+
+<svelte:window bind:innerWidth={$windowWidth} />
 
 <section style="margin: 0 auto; width: {$appWidth}px">
   <Router {routes} />
 </section>
-
-<svelte:window bind:innerWidth={$windowWidth} />

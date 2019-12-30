@@ -1,3 +1,12 @@
+<script>
+
+</script>
+
+<style>
+  @import url('../node_modules/photoswipe/dist/photoswipe.css');
+  @import url('../node_modules/photoswipe/dist/default-skin/default-skin.css');
+</style>
+
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
   <!-- Background of PhotoSwipe.

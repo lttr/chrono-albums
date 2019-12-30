@@ -5,8 +5,9 @@
   import justifiedLayout from 'justified-layout'
 
   import BackArrow from './BackArrow.svelte'
+  import Photoswipe from './Photoswipe.svelte'
   import config from './config'
-  import { photoSrc } from './routes'
+  import { photoSrc } from './helpers'
   import { appWidth } from './store'
 
   // todo to config
@@ -53,9 +54,6 @@
 </script>
 
 <style>
-  @import url('../node_modules/photoswipe/dist/photoswipe.css');
-  @import url('../node_modules/photoswipe/dist/default-skin/default-skin.css');
-
   .album {
     position: relative;
     padding: 1em 0;
@@ -130,3 +128,5 @@
     </figure>
   {/each}
 </div>
+
+<Photoswipe />

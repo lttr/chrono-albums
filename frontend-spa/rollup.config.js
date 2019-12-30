@@ -1,8 +1,12 @@
+import childProcess from 'child_process'
+
 import svelte from 'rollup-plugin-svelte'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
+import { postcss } from 'svelte-preprocess'
+import postcssImport from 'postcss-import'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -23,6 +27,11 @@ export default {
       css: css => {
         css.write('public/build/bundle.css')
       },
+      preprocess: [
+        postcss({
+          plugins: [postcssImport],
+        }),
+      ],
     }),
 
     // If you have external dependencies installed from
@@ -61,8 +70,7 @@ function serve() {
     writeBundle() {
       if (!started) {
         started = true
-
-        require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+        childProcess.spawn('npm', ['run', 'start', '--', '--dev'], {
           stdio: ['ignore', 'inherit', 'inherit'],
           shell: true,
         })

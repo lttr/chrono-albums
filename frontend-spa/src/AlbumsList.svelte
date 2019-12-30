@@ -4,7 +4,7 @@
   import { link } from 'svelte-spa-router'
 
   import config from './config'
-  import { albumRoute, thumbnailSrc } from './routes'
+  import { albumRoute, thumbnailSrc } from './helpers'
 
   const { metadata } = getContext('metadata')
 
