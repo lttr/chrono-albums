@@ -12,8 +12,10 @@
   })
 </script>
 
-<style>
+<style global>
   @import url('../node_modules/@lttr/skaut-design/css/skaut-design.css');
+  @import url('../node_modules/photoswipe/dist/photoswipe.css');
+  @import url('../node_modules/photoswipe/dist/default-skin/default-skin.css');
 </style>
 
 <svelte:window bind:innerWidth={$windowWidth} />

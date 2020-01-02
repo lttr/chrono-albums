@@ -5,7 +5,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
-import { postcss } from 'svelte-preprocess'
+import { postcss, globalStyle } from 'svelte-preprocess'
 import postcssImport from 'postcss-import'
 
 const production = !process.env.ROLLUP_WATCH
@@ -28,6 +28,7 @@ export default {
         css.write('public/build/bundle.css')
       },
       preprocess: [
+        globalStyle(),
         postcss({
           plugins: [postcssImport],
         }),

@@ -1,14 +1,22 @@
 <script>
+  let photoswipeWrapper
 
+  export function getPhotoswipeWrapper() {
+    return photoswipeWrapper
+  }
 </script>
 
 <style>
-  @import url('../node_modules/photoswipe/dist/photoswipe.css');
-  @import url('../node_modules/photoswipe/dist/default-skin/default-skin.css');
+
 </style>
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+<div
+  bind:this={photoswipeWrapper}
+  class="pswp"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true">
   <!-- Background of PhotoSwipe.
          It's a separate element, as animating opacity is faster than rgba(). -->
   <div class="pswp__bg" />
