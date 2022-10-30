@@ -26,7 +26,7 @@
     "hypermorphic": "^0.9.0"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.27.10",
     "cssnano": "^4.1.10",
     "image-size": "^0.8.1",
     "justified-layout": "^3.0.0",
